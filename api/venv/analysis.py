@@ -43,8 +43,8 @@ def accept_input():
 
 
 @app.route('/results')
-async def send_results():
-    info = await [[key, value]
-                  for [key, value] in sorted(counts.items(), key=lambda x: x[1], reverse=True)]
+def send_results():
+    info = [[key, value]
+            for [key, value] in sorted(counts.items(), key=lambda x: x[1], reverse=True)]
     counts.clear()
     return jsonify(info)

@@ -46,5 +46,6 @@ def accept_input():
 def send_results():
     info = [[key, value]
             for [key, value] in sorted(counts.items(), key=lambda x: x[1], reverse=True)]
-    counts.clear()
-    return jsonify(info)
+    if info.length > 0:
+        counts.clear()
+        return jsonify(info)

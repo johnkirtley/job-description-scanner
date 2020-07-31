@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -12,7 +12,6 @@ function App() {
 			axios
 				.get('https://job-description-scanner.herokuapp.com/results')
 				.then((res) => setItem(res.data));
-			setLoading(false);
 		}, [loading]),
 		2000
 	);
@@ -20,6 +19,9 @@ function App() {
 	const newDescription = (e) => {
 		setDescription(e.target.value);
 	};
+
+	const itemRef = useRef(item);
+	itemRef.current = item;
 
 	return (
 		<div className='App'>
@@ -45,8 +47,8 @@ function App() {
 					justifyContent: 'space-evenly',
 					flexFlow: 'column',
 				}}>
-				{item !== []
-					? item.map((word, i) => (
+				{itemRef.current !== []
+					? itemRef.current.map((word, i) => (
 							<div
 								style={{ display: 'flex', justifyContent: 'center' }}
 								key={i}>

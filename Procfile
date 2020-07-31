@@ -1,1 +1,1 @@
-web: gunicorn api/venv.analysis:app
+web: gunicorn api.venv.analysis:app

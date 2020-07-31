@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect
 from flask import jsonify
 from flask_cors import CORS
+import asyncio
 
 app = Flask(__name__)
 CORS(app)
@@ -42,8 +43,8 @@ def accept_input():
 
 
 @app.route('/results')
-def send_results():
-    info = [[key, value]
-            for [key, value] in sorted(counts.items(), key=lambda x: x[1], reverse=True)]
+async def send_results():
+    info = await [[key, value]
+                  for [key, value] in sorted(counts.items(), key=lambda x: x[1], reverse=True)]
     counts.clear()
     return jsonify(info)

@@ -5,12 +5,17 @@ import './App.css';
 function App() {
 	const [item, setItem] = useState([]);
 	const [description, setDescription] = useState('');
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		axios.get('http://127.0.0.1:5000/results').then((res) => setItem(res.data));
-		setLoading(false);
-	}, [loading]);
+	setTimeout(
+		useEffect(() => {
+			axios
+				.get('https://job-description-scanner.herokuapp.com/results')
+				.then((res) => setItem(res.data));
+			setLoading(false);
+		}, [loading]),
+		2000
+	);
 
 	const newDescription = (e) => {
 		setDescription(e.target.value);
@@ -21,7 +26,7 @@ function App() {
 			<form
 				style={{ height: '500px', margin: 'auto' }}
 				method='POST'
-				action='http://127.0.0.1:5000/process'
+				action='https://job-description-scanner.herokuapp.com/process'
 				onSubmit={() => setLoading(true)}>
 				<label>Enter Description</label>
 				<input
@@ -40,7 +45,7 @@ function App() {
 					justifyContent: 'space-evenly',
 					flexFlow: 'column',
 				}}>
-				{item.length > 1
+				{item !== []
 					? item.map((word, i) => (
 							<div
 								style={{ display: 'flex', justifyContent: 'center' }}

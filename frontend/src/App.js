@@ -12,7 +12,7 @@ function App() {
 			axios
 				.get('https://job-description-scanner.herokuapp.com/results')
 				.then((res) => setItem(res.data));
-		}, [loading]),
+		}, []),
 		2000
 	);
 
@@ -28,8 +28,7 @@ function App() {
 			<form
 				style={{ height: '500px', margin: 'auto' }}
 				method='POST'
-				action='https://job-description-scanner.herokuapp.com/process'
-				onSubmit={() => setLoading(true)}>
+				action='https://job-description-scanner.herokuapp.com/process'>
 				<label>Enter Description</label>
 				<input
 					type='text'

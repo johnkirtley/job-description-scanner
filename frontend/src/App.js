@@ -5,16 +5,17 @@ import './App.css';
 function App() {
 	const [item, setItem] = useState([]);
 	const [description, setDescription] = useState('');
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
-	setTimeout(
-		useEffect(() => {
-			axios
-				.get('https://job-description-scanner.herokuapp.com/results')
-				.then((res) => setItem(res.data));
-		}, []),
-		2000
-	);
+	useEffect(() => {
+		axios
+			.get('https://job-description-scanner.herokuapp.com/results')
+			.then(async (res) => {
+				const data = await res.data;
+				setItem(data);
+			});
+		console.log('render');
+	}, []);
 
 	const newDescription = (e) => {
 		setDescription(e.target.value);
@@ -46,8 +47,8 @@ function App() {
 					justifyContent: 'space-evenly',
 					flexFlow: 'column',
 				}}>
-				{itemRef.current !== []
-					? itemRef.current.map((word, i) => (
+				{item !== []
+					? item.map((word, i) => (
 							<div
 								style={{ display: 'flex', justifyContent: 'center' }}
 								key={i}>

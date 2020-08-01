@@ -39,7 +39,7 @@ def accept_input():
                     if lower_case in counts.keys() and lower_case not in avoided_words.keys():
                         counts[lower_case] += 1
 
-            return redirect('http://localhost:3000/about')
+        return redirect('http://localhost:3000/about')
 
 
 @app.route('/results')
